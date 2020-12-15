@@ -1,4 +1,5 @@
 import { createStore,applyMiddleware } from 'redux'
-import reducer from './reducer.js'
+import reducers from './reducers'
 import thunk from 'redux-thunk'
-export default createStore(reducer,applyMiddleware(thunk))
+import { composeWithDevTools } from 'redux-devtools-extension'   //用于支持redux开发者调试工具的运行
+export default createStore(reducers,composeWithDevTools(applyMiddleware(thunk)))

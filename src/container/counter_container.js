@@ -1,5 +1,5 @@
 import Counter from '../components/counter.jsx'
-import { incrementAction,decrementAction,incrementAsyncAction } from '../redux/action_creators'
+import { incrementAction,decrementAction,incrementAsyncAction } from '../redux/actions/count_actions'
 import { connect } from 'react-redux'
 
 /* 
@@ -43,7 +43,7 @@ export default connect(mapStateToProps,mapDispatchToProps)(Counter)
 
 //简写
 export default connect(
-    state => ({count:state}),
+    state => ({count:state.counter,person:state.person}),
     {
         increment:incrementAction,
         decrement:decrementAction,

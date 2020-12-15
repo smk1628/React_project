@@ -22,10 +22,11 @@ class Counter extends React.Component{
         this.props.incrementAsync(value*1,1000)
     }
     render(){
-        let {count} = this.props
+        let {count,person} = this.props
         return (
             <>
-                <h1>当前和为:{count}</h1>
+                <span>当前和为:{count}</span>&nbsp;&nbsp;
+                <span>当前store中存在{person.length}人</span><br/>
                 <select ref={(select)=>{this.selectNode = select}}>
                     <option value="1" defaultValue>1</option>
                     <option value="2">2</option>
