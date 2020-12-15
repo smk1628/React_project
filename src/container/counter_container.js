@@ -1,5 +1,5 @@
 import Counter from '../components/counter.jsx'
-import { incrementAction,decrementAction,incrementAsyncAction } from '../redux/actions/count_actions'
+import { incrementAction,decrementAction,incrementAsyncAction } from '../redux/action_creators/count_actions'
 import { connect } from 'react-redux'
 
 /* 
