@@ -1,7 +1,9 @@
 import React from 'react'
+import CounterContainer from './container/counter_container'
 class App extends React.Component{
+   
     render(){
-        return <h1>hello react</h1>
+        return <CounterContainer/>
     }
 }
 
