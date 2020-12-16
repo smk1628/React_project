@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.less';
 import {Route,Switch} from 'react-router-dom'
-import Admin from './components/Admin/Admin.jsx'
-import Login from './components/Login/Login.jsx'
+import Admin from './containers/Admin/Admin.jsx'
+import Login from './containers/Login/Login.jsx'
 class App extends React.Component{
   render(){
     return(
