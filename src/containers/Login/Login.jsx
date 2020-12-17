@@ -17,7 +17,7 @@ class Login extends React.Component {
                 let { status, msg } = result
                 if (status === 0) {   //根据请求成功返回信息的status判断是否登陆成功
                     //保存用户信息到状态
-                    this.props.saveUserInfo(result.data)
+                    this.props.saveUserInfo(result)
                     //跳转到admin页面
                     this.props.history.replace('/admin')
                 } else {
