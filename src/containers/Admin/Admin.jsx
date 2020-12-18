@@ -1,37 +1,41 @@
 import React from 'react'
-import { deleUserInfoAction } from '../../redux/action_creators/login_action'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import { Layout } from 'antd';
 import { checkUser } from '../../api'
-
+import Header from './header/header'
+const   { Footer, Sider, Content } = Layout;
 @connect(
-    state =>({userInfo:state.userInfo}),
-    {
-        deleUserInfo:deleUserInfoAction
-    }
+    state =>({userInfo:state.userInfo})
 )
 class Admin extends React.Component{
-    outLogin = ()=>{
-        this.props.deleUserInfo()
-    }
+    
+
     demo = async ()=>{
         let result = await checkUser()
         console.log(result)
     }
     render(){
-        const {user,isLogin} = this.props.userInfo
-        //console.log(this)
+        const {isLogin} = this.props.userInfo
         if(!isLogin){
             return <Redirect to="/login" />
         }else{
             return (
-                <>
-                    <h2>Admin界面</h2>
-                    <p>欢迎：{user.username}</p>
-                    <p>状态：{isLogin? '已登录':'异常'}</p>
-                    <button onClick={this.outLogin}>退出登录</button>
-                    <button onClick={this.demo}>点击验证token</button>
-                </>
+                // <>
+                //     <h2>Admin界面</h2>
+                //     <p>欢迎：{user.username}</p>
+                //     <p>状态：{isLogin? '已登录':'异常'}</p>
+                    
+                //     <button onClick={this.demo}>点击验证token</button>
+                // </>
+                <Layout style={{height:"100%"}}>
+                    <Sider>Sider</Sider>
+                    <Layout>
+                        <Header/>
+                        <Content>Content</Content>
+                        <Footer>Footer</Footer>
+                    </Layout>
+                </Layout>
             )
         }
         
