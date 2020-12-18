@@ -11,7 +11,7 @@ const instance = axios.create({
 //请求拦截器
 instance.interceptors.request.use((config)=>{
     const {token} = store.getState().userInfo
-    if(token) config.headers.Authorization = token
+    if(token) config.headers.Authorization = token  //在请求头添加Authorization来携带token，进行服务器验证
     nprogress.configure({showSpinner:false})
     nprogress.start()   //加载进度条
    

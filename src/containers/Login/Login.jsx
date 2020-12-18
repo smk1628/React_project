@@ -7,6 +7,13 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { saveUserInfoAction } from '../../redux/action_creators/login_action.js'
 
+@connect(
+    state => ({userInfo:state.userInfo}),
+    {
+        saveUserInfo: saveUserInfoAction
+    }
+)
+
 class Login extends React.Component {
     render() {
         //console.log(this.props)
@@ -29,7 +36,7 @@ class Login extends React.Component {
         const onFinishFailed = () => {
             message.error("提交的表单有误！！")
         }
-        if(this.props.userInfo && this.props.userInfo.isLogin){
+        if(this.props.userInfo.isLogin){
             return <Redirect to="/admin"/>
         }else{
             return (
@@ -107,9 +114,4 @@ class Login extends React.Component {
         
     }
 }
-export default connect(
-    state => ({userInfo:state.userInfo}),
-    {
-        saveUserInfo: saveUserInfoAction
-    }
-)(Login)
+export default Login
