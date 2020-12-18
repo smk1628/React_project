@@ -14,7 +14,7 @@ export default function operaUserInfo(preState=initState,action) {
     let newData = preState
     switch (type) {
         case SAVE_USER_INFO:
-            console.log('data',action)
+            //console.log('login_action',action)    //action {type,data[data{xx:xx,yy:yy},token:'xxxxx']}
             newData = {user:data.data,isLogin:true,token:data.token}
             return newData
         case DELE_USER_INFO:

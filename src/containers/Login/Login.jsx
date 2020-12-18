@@ -2,7 +2,7 @@ import React from 'react'
 import './css/login.less'
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { reqLogin } from '../../api/index'
+import { reqLogin } from '../../api/'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { saveUserInfoAction } from '../../redux/action_creators/login_action.js'

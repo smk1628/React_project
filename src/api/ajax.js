@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {message} from 'antd'
 import nprogress from 'nprogress'
+import store from '../redux/store'
 import qs from 'querystring'
 import 'nprogress/nprogress.css'
 const instance = axios.create({
@@ -9,6 +10,8 @@ const instance = axios.create({
 
 //请求拦截器
 instance.interceptors.request.use((config)=>{
+    const {token} = store.getState().userInfo
+    if(token) config.headers.Authorization = token
     nprogress.configure({showSpinner:false})
     nprogress.start()   //加载进度条
    
