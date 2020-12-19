@@ -1,39 +1,70 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Redirect,Switch,Route } from 'react-router-dom'
 import { Layout } from 'antd';
-import { checkUser } from '../../api'
+//import { checkUser } from '../../api'
 import Header from './header/header'
-const   { Footer, Sider, Content } = Layout;
+import Home from '../home/home';
+import Goods from '../goods/goods'
+import Sort from '../sort/sort'
+import User from '../user/user'
+import Role from '../role/role'
+import Bar from '../bar/bar'
+import Line from '../line/line'
+import Pie from '../pie/pie'
+import LeftNav from './left_nav/left_nav'
+import logo from '../../static/imgs/logo.png'
+import './css/Admin.less'
+const {  Content, Footer, Sider } = Layout;
 @connect(
     state =>({userInfo:state.userInfo})
 )
 class Admin extends React.Component{
-    
-
-    demo = async ()=>{
-        let result = await checkUser()
-        console.log(result)
+    state = {
+        collapsed: false,
+      }
+    onCollapse = collapsed => {
+    console.log(collapsed);
+    this.setState({ collapsed });
     }
+
+
+    // demo = async ()=>{
+    //     let result = await checkUser()
+    //     console.log(result)
+    // }
     render(){
+        // this.demo()
+        const { collapsed } = this.state;
         const {isLogin} = this.props.userInfo
         if(!isLogin){
             return <Redirect to="/login" />
         }else{
             return (
-                // <>
-                //     <h2>Admin界面</h2>
-                //     <p>欢迎：{user.username}</p>
-                //     <p>状态：{isLogin? '已登录':'异常'}</p>
-                    
-                //     <button onClick={this.demo}>点击验证token</button>
-                // </>
-                <Layout style={{height:"100%"}}>
-                    <Sider>Sider</Sider>
-                    <Layout>
+                <Layout style={{ minHeight: '100vh' }}>
+                    <Sider className="sider"  collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
+                        <div className="logo">
+                           <img src={logo} alt="logo"/>
+                           <h1 style={{display:collapsed? 'none':'block'}}>后台管理系统</h1>
+                        </div>
+                        <LeftNav/>
+                    </Sider>
+                    <Layout style={{background: "rgb(225,233,220)"}}>
                         <Header/>
-                        <Content>Content</Content>
-                        <Footer>Footer</Footer>
+                        <Content style={{ margin: '35px 30px 0px 30px ',background:"#fff",minWidth:800}}>
+                            <Switch>
+                                <Route path="/admin/home" component={Home} />
+                                <Route path="/admin/prod_about/goods" component={Goods}/>
+                                <Route path="/admin/prod_about/sort" component={Sort}/>
+                                <Route path="/admin/user" component={User}/>
+                                <Route path="/admin/role" component={Role}/>
+                                <Route path="/admin/pic/bar" component={Bar} />
+                                <Route path="/admin/pic/line" component={Line} />
+                                <Route path="/admin/pic/pie" component={Pie} />
+                                <Redirect to="/admin" />
+                            </Switch>
+                        </Content>
+                        <Footer style={{ textAlign: 'center',background: "rgb(225,233,220)"}}>Ant Design ©2018 Created by Ant UED</Footer>
                     </Layout>
                 </Layout>
             )

@@ -1,7 +1,7 @@
 .header {
     padding: 0;
     height: 91px;
-    background-color: white;
+    background-color:#fff;
     .top{
         display: flex;
         padding: 0 30px;
@@ -31,18 +31,29 @@
         align-items: center;
         justify-content: space-between;
         .title{
-            
+            position: relative;
+            line-height: 50px;
             h1{
                 font-size: 25px;
                 margin: 0 7px;
                 color: rgb(38,188,213);
+               
+            }
+            .tel{
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 30px;
+                border: 30px solid transparent;
+                border-top: 30px solid #fff;
+                
             }
         }
         .msg{
             color: #888;
             img{
-                margin: 0 5px;
-                height: 40px;
+                margin: 0 0 9px 10px;
+                height: 35px;
             }
         }
     }

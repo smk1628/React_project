@@ -5,7 +5,7 @@ import store from '../redux/store'
 import qs from 'querystring'
 import 'nprogress/nprogress.css'
 const instance = axios.create({
-    timeout:4000,
+    timeout:10000,
 })
 
 //请求拦截器
