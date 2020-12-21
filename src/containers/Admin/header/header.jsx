@@ -3,9 +3,10 @@ import { Layout,Button } from 'antd';
 import { FullscreenOutlined,FullscreenExitOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux'
 import dayjs from 'dayjs'
+import screenfull from 'screenfull'
+import { withRouter } from 'react-router-dom'
 import {Weather} from '../../../api/index.js'
 import { deleUserInfoAction } from '../../../redux/action_creators/login_action'
-import screenfull from 'screenfull'
 import './header.less'
 import duoyun from '../../../static/imgs/duoyun.png'
 import qing from '../../../static/imgs/qing.png'
@@ -13,20 +14,22 @@ import xue from '../../../static/imgs/xue.png'
 import yin from '../../../static/imgs/yin.png'
 import yu from '../../../static/imgs/yu.png'
 import weizhi from '../../../static/imgs/weizhi.png'
-
+import navArr from '../../../siderNavConfig'
 const { Header } = Layout;
 
 @connect(
-    state =>({userInfo:state.userInfo}),
+    state =>({userInfo:state.userInfo,title:state.title}),
     {
         deleUserInfo:deleUserInfoAction
     }
 )
+@withRouter
 class header extends React.Component{
     state = {
         isFull : null,
         time:dayjs().format('YYYY年MM月DD日 HH:mm:ss'),
-        weather:{city:'',type:'',high:'',low:'',img:weizhi}
+        weather:{city:'',type:'',high:'',low:'',img:weizhi},
+        title:''
     }
     outLogin = ()=>{
         this.props.deleUserInfo()
@@ -57,6 +60,21 @@ class header extends React.Component{
                 return {city,type,high,low,img:weizhi}
         }
     }
+    getTitle=()=>{
+        let pathKey = this.props.location.pathname.split('/').reverse()[0]
+        let title = ''
+        navArr.forEach((item)=>{
+            if(item.children instanceof Array){
+                let tmp = item.children.find((citem)=>{
+                    return citem.key === pathKey
+                })
+                if(tmp) title = tmp.title
+            }else{
+                if(pathKey === item.key) title = item.title
+            }
+        })
+        this.setState({title})
+    }
     async componentDidMount(){
         //监听全屏
         if (screenfull.isEnabled) {
@@ -77,14 +95,17 @@ class header extends React.Component{
             weather = this.setWeatherData(weather)
             this.setState({weather})
         }  
+        //设置初始title
+        this.getTitle()
+        //console.log(1)
     }
     componentWillUnmount(){
         clearInterval(this.getTime)
     }
     render(){
         const {user} = this.props.userInfo
-        let { isFull,time} = this.state
-        let { city,type,high,low,img } = this.state.weather
+        const { isFull,time} = this.state
+        const { city,type,high,low,img } = this.state.weather
         return (
             <Header className="header">
                 <div className="top">
@@ -96,7 +117,7 @@ class header extends React.Component{
                 </div>
                 <div className="bottom">
                     <div className="title">
-                        <h1>柱状图</h1>
+                        <h1>{this.props.title || this.state.title}</h1>
                         <div className="tel"></div>
                     </div>
                     <div className="msg">

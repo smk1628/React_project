@@ -1,43 +1,47 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { Menu } from 'antd';
-import {
-    HomeOutlined,
-    AppstoreOutlined,
-    ToolOutlined,
-    UnorderedListOutlined,
-    UserOutlined,
-    SafetyOutlined,
-    LineChartOutlined,
-    BarChartOutlined,
-    AreaChartOutlined,
-    PieChartOutlined
-  } from '@ant-design/icons';
+import navArr from '../../../siderNavConfig'
+import * as Icon from '@ant-design/icons';
+import {withRouter} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { saveTitleAction } from '../../../redux/action_creators/header_action.js'
 const { SubMenu } = Menu;
-
-export default class left_nav extends Component {
-    
+@connect(
+    state=>({}),
+    {
+        saveTitle:saveTitleAction
+    }
+)
+@withRouter
+ class left_nav extends Component {
+    createNav = (target)=>{
+        return target.map((item)=>{
+            if(!item.children ){
+                return (
+                    <Menu.Item key={item.key} icon={React.createElement(Icon[item.icon])} onClick={()=>{this.props.saveTitle(item.title)}}>
+                        <Link to={item.to}>{item.title}</Link>
+                    </Menu.Item>
+                )
+            }else{
+                return(
+                    <SubMenu key={item.key} icon={React.createElement(Icon[item.icon])} title={item.title}>
+                            {this.createNav(item.children)}
+                    </SubMenu>
+                )
+            }
+        })
+    }
     render() {
+        let path = this.props.location.pathname.split('/').reverse()
+        let defaultSelectedKey =  path[0]
         return (
-            <Menu theme="dark" defaultSelectedKeys={['home']} defaultOpenKeys={['prod','pic']} mode="inline">
-                <Menu.Item key="home" icon={<HomeOutlined />}>
-                    首页
-                </Menu.Item>
-                <SubMenu key="prod" icon={<AppstoreOutlined />} title="商品">
-                    <Menu.Item icon={<UnorderedListOutlined />} key="sort">分类管理</Menu.Item>
-                    <Menu.Item icon={<ToolOutlined />} key="goods">商品管理</Menu.Item>
-                </SubMenu>
-                <Menu.Item key="user" icon={<UserOutlined />}>
-                    用户管理
-                </Menu.Item>
-                <Menu.Item key="role" icon={<SafetyOutlined />}>
-                    角色管理
-                </Menu.Item>
-                <SubMenu key="pic" icon={<AreaChartOutlined />} title="图像图表">
-                    <Menu.Item icon={<BarChartOutlined />} key="bar">柱状图</Menu.Item>
-                    <Menu.Item icon={<LineChartOutlined />} key="line">折线图</Menu.Item>
-                    <Menu.Item icon={<PieChartOutlined />} key="pie">饼图</Menu.Item>
-                </SubMenu>
+            <Menu theme="dark" defaultSelectedKeys={[defaultSelectedKey]} defaultOpenKeys={path} mode="inline">
+                {
+                    this.createNav(navArr)
+                }
             </Menu>
         )
     }
 }
+export default left_nav

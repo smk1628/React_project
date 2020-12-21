@@ -1,17 +1,26 @@
 
 .logo {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-around;
     height:70px;
-    
+    background:rgb(13,12,12);
    h1{
-        font-size: 20px;
-        color: #fff;
         margin-bottom: 0;
+        
    }
     img {
         width: 40px;
         height: 40px;
     }
+}
+.hidden{
+    position: absolute;
+    font-size: 0;
+}
+.show {
+   font-size: 20px;
+   color: rgba(255,255,255);
+   transition:0.3s;
 }

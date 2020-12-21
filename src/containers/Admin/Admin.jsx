@@ -24,7 +24,7 @@ class Admin extends React.Component{
         collapsed: false,
       }
     onCollapse = collapsed => {
-    console.log(collapsed);
+    //console.log(collapsed);
     this.setState({ collapsed });
     }
 
@@ -45,7 +45,7 @@ class Admin extends React.Component{
                     <Sider className="sider"  collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
                         <div className="logo">
                            <img src={logo} alt="logo"/>
-                           <h1 style={{display:collapsed? 'none':'block'}}>后台管理系统</h1>
+                           <h1 className={collapsed? 'hidden':'show'}>后台管理系统</h1>
                         </div>
                         <LeftNav/>
                     </Sider>
@@ -61,7 +61,7 @@ class Admin extends React.Component{
                                 <Route path="/admin/pic/bar" component={Bar} />
                                 <Route path="/admin/pic/line" component={Line} />
                                 <Route path="/admin/pic/pie" component={Pie} />
-                                <Redirect to="/admin" />
+                                <Redirect to="/admin/home" />
                             </Switch>
                         </Content>
                         <Footer style={{ textAlign: 'center',background: "rgb(225,233,220)"}}>Ant Design ©2018 Created by Ant UED</Footer>

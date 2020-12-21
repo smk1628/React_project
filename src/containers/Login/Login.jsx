@@ -26,7 +26,7 @@ class Login extends React.Component {
                     //保存用户信息到状态
                     this.props.saveUserInfo(result)
                     //跳转到admin页面
-                    this.props.history.replace('/admin')
+                    this.props.history.replace('/admin/login')
                 } else {
                     message.warning(msg)
                 }
