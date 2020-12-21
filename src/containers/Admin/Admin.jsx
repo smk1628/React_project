@@ -64,7 +64,7 @@ class Admin extends React.Component{
                                 <Redirect to="/admin/home" />
                             </Switch>
                         </Content>
-                        <Footer style={{ textAlign: 'center',background: "rgb(225,233,220)"}}>Ant Design ©2018 Created by Ant UED</Footer>
+                        <Footer style={{ textAlign: 'center',background: "rgb(225,233,220)"}}>Project ©2020 Created by Ant UED</Footer>
                     </Layout>
                 </Layout>
             )
