@@ -26,7 +26,7 @@ class Login extends React.Component {
                     //保存用户信息到状态
                     this.props.saveUserInfo(result)
                     //跳转到admin页面
-                    this.props.history.replace('/admin/login')
+                    this.props.history.replace('/admin/home')
                 } else {
                     message.warning(msg)
                 }
@@ -37,7 +37,7 @@ class Login extends React.Component {
             message.error("提交的表单有误！！")
         }
         if(this.props.userInfo.isLogin){
-            return <Redirect to="/admin"/>
+            return <Redirect to="/admin/home"/>
         }else{
             return (
 

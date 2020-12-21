@@ -33,6 +33,7 @@ const { SubMenu } = Menu;
         })
     }
     render() {
+        console.log(this.props.location.pathname)
         let path = this.props.location.pathname.split('/').reverse()
         let defaultSelectedKey =  path[0]
         return (
