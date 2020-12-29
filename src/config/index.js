@@ -7,3 +7,4 @@ export const WEATHER = {
 }  //获取天气的api路径
 
 export const PAGE_SIZE = 8
+export const GOODS_PAGE_SIZE = 5

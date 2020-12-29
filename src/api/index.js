@@ -19,6 +19,11 @@ export const Weather = async () => {
     }
     
 }
+/* 获取分类 */
 export const getCategory =()=> ajax.post(`${BASE_URL}/category/list`)
+/* 添加分类 */
 export const addCategory = data => ajax.post(`${BASE_URL}/category/add`,data)
+/* 修改分类 */
 export const updateCategory = data => ajax.post(`${BASE_URL}/category/update`,data)
+/* 获取商品 */
+export const getGoods = (CurrentPage, pageSize) => ajax.get(`${BASE_URL}/goods/list`,{params:{CurrentPage, pageSize}})

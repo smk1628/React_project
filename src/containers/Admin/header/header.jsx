@@ -7,6 +7,7 @@ import screenfull from 'screenfull'
 import { withRouter } from 'react-router-dom'
 import {Weather} from '../../../api/index.js'
 import { deleUserInfoAction } from '../../../redux/action_creators/login_action'
+import { deleTitleAction } from '../../../redux/action_creators/header_action'
 import './header.less'
 import duoyun from '../../../static/imgs/duoyun.png'
 import qing from '../../../static/imgs/qing.png'
@@ -20,7 +21,8 @@ const { Header } = Layout;
 @connect(
     state =>({userInfo:state.userInfo,title:state.title}),
     {
-        deleUserInfo:deleUserInfoAction
+        deleUserInfo:deleUserInfoAction,
+        deleTitle:deleTitleAction
     }
 )
 @withRouter
@@ -33,6 +35,7 @@ class header extends React.Component{
     }
     outLogin = ()=>{
         this.props.deleUserInfo()
+        this.props.deleTitle()
     }
     isScreenFull = ()=>{
         if (screenfull.isEnabled) {

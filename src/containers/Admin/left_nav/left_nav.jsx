@@ -35,9 +35,9 @@ const { SubMenu } = Menu;
     render() {
         console.log(this.props.location.pathname)
         let path = this.props.location.pathname.split('/').reverse()
-        let defaultSelectedKey =  path[0]
+        let selectedKey =  path[0]
         return (
-            <Menu theme="dark" defaultSelectedKeys={[defaultSelectedKey]} defaultOpenKeys={path} mode="inline">
+            <Menu theme="dark" selectedKeys={[selectedKey]} defaultOpenKeys={path} mode="inline">
                 {
                     this.createNav(navArr)
                 }

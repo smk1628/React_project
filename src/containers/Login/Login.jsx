@@ -13,7 +13,6 @@ import { saveUserInfoAction } from '../../redux/action_creators/login_action.js'
         saveUserInfo: saveUserInfoAction
     }
 )
-
 class Login extends React.Component {
     render() {
         //console.log(this.props)
@@ -26,7 +25,8 @@ class Login extends React.Component {
                     //保存用户信息到状态
                     this.props.saveUserInfo(result)
                     //跳转到admin页面
-                    this.props.history.replace('/admin/home')
+                    // this.props.history.replace('/admin/home')
+                    return <Redirect to="/admin/home"/>
                 } else {
                     message.warning(msg)
                 }
