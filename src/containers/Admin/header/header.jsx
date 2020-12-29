@@ -40,8 +40,12 @@ class header extends React.Component{
         }
     }
     getWeather = async ()=>{
-        return await Weather()  //定义weather变量
-       
+        let weather = await Weather()
+        //格式化天气
+        if(weather){  
+            weather = this.setWeatherData(weather)
+            this.setState({weather})
+        }     
     }
     setWeatherData = (weather)=>{
         let {city,type,high,low} = weather
@@ -52,9 +56,15 @@ class header extends React.Component{
                 return {city,type,high,low,img:duoyun}
             case '阴':
                 return {city,type,high,low,img:yin}
-            case '雪' || '大雪' || '小雪' || '中雪':
+            case '雪':
+            case '小雪':
+            case '中雪':
+            case '大雪':
                 return {city,type,high,low,img:xue}
-            case '雨' || '大雨' || '中雨' || '小雨':
+            case '雨':
+            case '小雨':
+            case '中雨':
+            case '大雨':
                 return {city,type,high,low,img:yu}
             default:
                 return {city,type,high,low,img:weizhi}
@@ -75,7 +85,7 @@ class header extends React.Component{
         })
         this.setState({title})
     }
-    async componentDidMount(){
+    componentDidMount(){
         //监听全屏
         if (screenfull.isEnabled) {
             screenfull.on('change', () => {
@@ -86,18 +96,10 @@ class header extends React.Component{
         this.getTime = setInterval(()=>{
             this.setState({time:dayjs().format('YYYY年MM月DD日 HH:mm:ss')})
         },1000)
-
-        //获取天气
-        let weather = await this.getWeather()
-        //console.log(weather)
-        //格式化天气
-        if(weather){  
-            weather = this.setWeatherData(weather)
-            this.setState({weather})
-        }  
+        // //获取天气
+         this.getWeather()
         //设置初始title
         this.getTitle()
-        //console.log(1)
     }
     componentWillUnmount(){
         clearInterval(this.getTime)

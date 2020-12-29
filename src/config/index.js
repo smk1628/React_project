@@ -5,3 +5,5 @@ export const WEATHER = {
     URL:'http://wthrcdn.etouch.cn/weather_mini',    //天气地址
     CITY:'郑州'                                      //城市
 }  //获取天气的api路径
+
+export const PAGE_SIZE = 8

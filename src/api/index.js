@@ -19,3 +19,6 @@ export const Weather = async () => {
     }
     
 }
+export const getCategory =()=> ajax.post(`${BASE_URL}/category/list`)
+export const addCategory = data => ajax.post(`${BASE_URL}/category/add`,data)
+export const updateCategory = data => ajax.post(`${BASE_URL}/category/update`,data)
