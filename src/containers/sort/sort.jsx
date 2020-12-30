@@ -104,8 +104,9 @@ import { getCategory,addCategory,updateCategory } from '../../api'
             },
             {
               title: '操作',
+              align:'center',
+              width:'14%',
               render:(a)=>{return <Button onClick={()=>{this.update(a)}} type="link">修改分类</Button>},
-              width:'25%'
             }
           ];
         return (

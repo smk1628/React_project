@@ -27,3 +27,7 @@ export const addCategory = data => ajax.post(`${BASE_URL}/category/add`,data)
 export const updateCategory = data => ajax.post(`${BASE_URL}/category/update`,data)
 /* 获取商品 */
 export const getGoods = (CurrentPage, pageSize) => ajax.get(`${BASE_URL}/goods/list`,{params:{CurrentPage, pageSize}})
+/* 修改商品状态 */
+export const updateGoodsStatus= (_id,status) => ajax.post(`${BASE_URL}/goods/update_status`,{_id,status})
+/* 获取搜索商品 */
+export const getSearchGoods= (CurrentPage, pageSize,searchType,keyWord) => ajax.get(`${BASE_URL}/goods/search`,{params:{CurrentPage, pageSize,[searchType]:keyWord}})
