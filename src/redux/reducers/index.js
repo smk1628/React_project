@@ -1,9 +1,12 @@
 import { combineReducers } from 'redux'
-import demoReducer from './demo_reducer'
+import operaGoodsListReducer from './goods_reducer'
 import operaUserInfoReducer from './login_reducer'
 import operaHeaderInfoReducer from './header_reducer'
+import operaCategoryListReducer from './category_reducer'
 export default combineReducers({
-    demo:demoReducer,
     userInfo:operaUserInfoReducer,
-    title:operaHeaderInfoReducer
+    title:operaHeaderInfoReducer, 
+    goodsList:operaGoodsListReducer,
+    categoryList:operaCategoryListReducer
+
 })

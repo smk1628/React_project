@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
 import { Table,Card,Button,message,Modal,Form,Input } from 'antd'
 import { PlusCircleOutlined } from '@ant-design/icons'
+import { connect } from 'react-redux'
 import { PAGE_SIZE } from '../../config'
 import { getCategory,addCategory,updateCategory } from '../../api'
-
+import { saveCategoryListAction } from '../../redux/action_creators/category_action'
+@connect(
+  state=>({}),
+  {saveCategoryList:saveCategoryListAction}
+)
  class sort extends Component {
     state = {
         categories:[], //分类列表
@@ -54,6 +59,7 @@ import { getCategory,addCategory,updateCategory } from '../../api'
        let {status,data,msg} = res
       if(status === 0){ 
         this.setState({categories:data})
+        this.props.saveCategoryList(data) //维护到store中
       }else{
         message.error(msg)
       }

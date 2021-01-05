@@ -35,7 +35,7 @@ const { SubMenu } = Menu;
     render() {
         console.log(this.props.location.pathname)
         let path = this.props.location.pathname.split('/').reverse()
-        let selectedKey =  path[0]
+        let selectedKey =  path.indexOf('goods') === -1 ? path[0]:'goods'
         return (
             <Menu theme="dark" selectedKeys={[selectedKey]} defaultOpenKeys={path} mode="inline">
                 {

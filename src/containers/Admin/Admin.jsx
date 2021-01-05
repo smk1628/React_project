@@ -12,6 +12,8 @@ import Role from '../role/role'
 import Bar from '../bar/bar'
 import Line from '../line/line'
 import Pie from '../pie/pie'
+import Detail from '../goods/detail/detail'
+import Modify from '../goods/modify/modify'
 import LeftNav from './left_nav/left_nav'
 import logo from '../../static/imgs/logo.png'
 import './css/Admin.less'
@@ -54,7 +56,9 @@ class Admin extends React.Component{
                         <Content style={{ margin: '35px 30px 0px 30px ',background:"#fff",minWidth:800}}>
                             <Switch>
                                 <Route path="/admin/home" component={Home} />
-                                <Route path="/admin/prod_about/goods" component={Goods}/>
+                                <Route path="/admin/prod_about/goods" component={Goods} exact/>
+                                <Route path="/admin/prod_about/goods/detail/:id" component={Detail}/>
+                                <Route path="/admin/prod_about/goods/modify/:id" component={Modify}/>
                                 <Route path="/admin/prod_about/sort" component={Sort}/>
                                 <Route path="/admin/user" component={User}/>
                                 <Route path="/admin/role" component={Role}/>

@@ -31,3 +31,11 @@ export const getGoods = (CurrentPage, pageSize) => ajax.get(`${BASE_URL}/goods/l
 export const updateGoodsStatus= (_id,status) => ajax.post(`${BASE_URL}/goods/update_status`,{_id,status})
 /* 获取搜索商品 */
 export const getSearchGoods= (CurrentPage, pageSize,searchType,keyWord) => ajax.get(`${BASE_URL}/goods/search`,{params:{CurrentPage, pageSize,[searchType]:keyWord}})
+/* 根据id获取商品信息 */
+export const getGoodsById= (id) => ajax.get(`${BASE_URL}/goods/get_by_id`,{params:{_id:id}})
+/* 根据id获取商品所属分类 */
+export const getCategoryById= (id) => ajax.get(`${BASE_URL}/category/get_by_id`,{params:{_id:id}})
+/* 删除图片 */
+export const deleteImageByName = name=> ajax.post(`${BASE_URL}/manage/img/delete`,{name})
+/* 添加商品 */
+export const addGoods = data => ajax.post(`${BASE_URL}/goods/add`,data)

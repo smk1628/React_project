@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
 import { Card,Button,Input,Select,Table,message } from 'antd'
 import { SearchOutlined,PlusCircleOutlined } from '@ant-design/icons'
+import { connect } from 'react-redux'
+import { saveGoodsAction } from '../../redux/action_creators/goods_action.js'
 import { getGoods,updateGoodsStatus,getSearchGoods } from '../../api'
 import { GOODS_PAGE_SIZE } from '../../config/index'
 const { Option } = Select
-export default class goods extends Component {
+@connect(
+    state=>({}),
+    {setGoodsList:saveGoodsAction}
+)
+class goods extends Component {
     state = {
         goods:[],
         total:null,
@@ -24,6 +30,7 @@ export default class goods extends Component {
         const {status,data,count,msg} = result
         if(status === 0){
             this.setState({'goods':data,total:count,current})
+            this.props.setGoodsList(data)
         }else{
             message.error(msg)
         }
@@ -60,7 +67,6 @@ export default class goods extends Component {
     }
     render() {
         const dataSource = this.state.goods
-          
           const columns = [
             {
               title: '商品名称',
@@ -104,14 +110,16 @@ export default class goods extends Component {
             },
             {
               title: '操作',
-              dataIndex: 'opera',
+              //dataIndex: 'opera',
               key: 'opera',
               align:'center',
               width:'12%',
-              render:()=>{return(
+              render:(a)=>{
+                  const { _id } = a
+                   return(
                 <>
-                    <Button type='link'>详情</Button><br/>
-                    <Button type='link'>修改</Button>
+                    <Button onClick={()=>{this.props.history.push(`/admin/prod_about/goods/detail/${_id}`)}} type='link'>详情</Button><br/>
+                    <Button onClick={()=>{this.props.history.push(`/admin/prod_about/goods/modify/${_id}`)}} type='link'>修改</Button>
                 </>
               )}
             }
@@ -135,7 +143,7 @@ export default class goods extends Component {
                     </>
                     
                 } 
-                extra={<Button type='primary'><PlusCircleOutlined />添加商品</Button>} 
+                extra={<Button onClick={()=>{this.props.history.push(`/admin/prod_about/goods/modify/add`)}} type='primary'><PlusCircleOutlined />添加商品</Button>} 
             >
                 <Table 
                     dataSource={dataSource} 
@@ -153,3 +161,4 @@ export default class goods extends Component {
         )
     }
 }
+export default goods

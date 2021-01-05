@@ -34,11 +34,19 @@ instance.interceptors.response.use(
     (response)=>{
         //若成功
         nprogress.done()
+        if(response.data.status === 10001){
+            setTimeout(()=>{
+                window.localStorage.clear()
+                window.location.reload()
+                return
+            },2000)
+        }
         return response.data;
     },
     (error)=>{  //处理失败的请求
         //若失败
         nprogress.done()
+        if(error.message === 'Network Error') error.message = '网络未连接'
         message.error(error.message,1)  //弹出为时一秒的错误提示
         return new Promise(()=>{})  //传递一个pendding 状态的promise，中断错误传递
     }

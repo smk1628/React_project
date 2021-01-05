@@ -74,7 +74,9 @@ class header extends React.Component{
         }
     }
     getTitle=()=>{
-        let pathKey = this.props.location.pathname.split('/').reverse()[0]
+        let { pathname } = this.props.location
+        let pathKey = pathname.split('/').reverse()[0]
+        if(pathname.indexOf('goods') !== -1) pathKey = 'goods'
         let title = ''
         navArr.forEach((item)=>{
             if(item.children instanceof Array){
