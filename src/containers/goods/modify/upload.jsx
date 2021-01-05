@@ -19,6 +19,13 @@ class PicturesWall extends React.Component {
     }
     return images
   }
+  setImgs = (imgArr)=>{
+    let fileList = []
+    imgArr.forEach((item,index)=>{
+      fileList.push({uid:-index,name:item,url:`${BASE_URL}/upload/${item}`})
+    })
+    this.setState({fileList})
+  }
   deleImag = async(name)=>{
     let { status } = await deleteImageByName(name)
     if(status === 0){

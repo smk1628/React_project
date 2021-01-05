@@ -143,7 +143,7 @@ class goods extends Component {
                     </>
                     
                 } 
-                extra={<Button onClick={()=>{this.props.history.push(`/admin/prod_about/goods/modify/add`)}} type='primary'><PlusCircleOutlined />添加商品</Button>} 
+                extra={<Button onClick={()=>{this.props.history.push(`/admin/prod_about/goods/add`)}} type='primary'><PlusCircleOutlined />添加商品</Button>} 
             >
                 <Table 
                     dataSource={dataSource} 

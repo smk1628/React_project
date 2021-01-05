@@ -59,6 +59,7 @@ class Admin extends React.Component{
                                 <Route path="/admin/prod_about/goods" component={Goods} exact/>
                                 <Route path="/admin/prod_about/goods/detail/:id" component={Detail}/>
                                 <Route path="/admin/prod_about/goods/modify/:id" component={Modify}/>
+                                <Route path="/admin/prod_about/goods/add" component={Modify}/>
                                 <Route path="/admin/prod_about/sort" component={Sort}/>
                                 <Route path="/admin/user" component={User}/>
                                 <Route path="/admin/role" component={Role}/>

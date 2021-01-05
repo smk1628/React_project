@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import './modify.less'
 import  PicturesWall from './upload.jsx'
 import TextEditor from './text_editor'
-import { getCategory,addGoods} from '../../../api'
+import { getCategory,addGoods,getGoodsById} from '../../../api'
 const { Title,Text } = Typography
 const { Option } = Select
 @connect(
@@ -13,15 +13,47 @@ const { Option } = Select
 )
 class modify extends Component {
     state = {
-        title:'商品修改',
-        categories:[]
+        title:'添加商品',
+        categories:[],
+        
     }
-    /* 设置标题 （添加或者修改）*/
-    setTitle= ()=>{
+    /* 设置修改页面回显*/
+    setInfo= ()=>{
         const id = this.props.match.params.id
-        let title = '修改商品'
-        if(id === 'add')title = '添加商品'
-        this.setState({title})
+        const { goodsList } = this.props
+        if(id){
+            if(goodsList.length){
+                let result = goodsList.find(item=>{
+                    return item._id === id
+                })
+                this.form.setFieldsValue({...result})
+                if(this.PicturesWall) {
+                    this.PicturesWall.setImgs(result.imgs)
+                }
+            }else{
+                this.setGetGoodsById(id).then(data=>{
+                   this.form.setFieldsValue({...data})
+                   if(this.PicturesWall) {
+                    this.PicturesWall.setImgs(data.imgs)
+                }
+               }).catch(err=>{
+                   message.error(err)
+               })
+            }
+        }
+    }
+    /* 设置标题（添加或者修改） */
+    setTitle = ()=>{
+        const id = this.props.match.params.id
+        if(id) this.setState({title:'修改商品'})
+    }
+    setGetGoodsById = async(id)=>{
+        const {status,data,msg} = await getGoodsById(id)
+                if(status === 0){
+                    return Promise.resolve(data)
+                }else{
+                    return Promise.reject(msg)
+                }
     }
     /* 维护category到状态 */
     setCategoryList=async()=>{
@@ -57,6 +89,7 @@ class modify extends Component {
     }
     componentDidMount(){
         this.setCategoryList()
+        this.setInfo()
     }
     render() {
         const { title} = this.state
@@ -71,7 +104,7 @@ class modify extends Component {
                 } 
                 bordered={false} 
             >
-                <Form labelCol={{md:3,sm:3,xs:3}} wrapperCol={{md:8,sm:8,xs:8}} onFinish={this.onFinish}>
+                <Form ref={(f)=>this.form=f} labelCol={{md:3,sm:3,xs:3}} wrapperCol={{md:8,sm:8,xs:8}} onFinish={this.onFinish}>
                     <Form.Item
                         label="商品名称"
                         name="name"
