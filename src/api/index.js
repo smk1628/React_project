@@ -39,3 +39,5 @@ export const getCategoryById= (id) => ajax.get(`${BASE_URL}/category/get_by_id`,
 export const deleteImageByName = name=> ajax.post(`${BASE_URL}/manage/img/delete`,{name})
 /* 添加商品 */
 export const addGoods = data => ajax.post(`${BASE_URL}/goods/add`,data)
+/* 修改商品 */
+export const updateGoods = data => ajax.post(`${BASE_URL}/goods/update`,data)

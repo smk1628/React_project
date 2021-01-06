@@ -13,12 +13,13 @@ class PicturesWall extends React.Component {
   };
   getImagNames = ()=>{
     const { fileList } = this.state
-    let images
+    let images=[]
     if(fileList.length >= 0){
         images = fileList.map(item=> item.name)
     }
     return images
   }
+
   setImgs = (imgArr)=>{
     let fileList = []
     imgArr.forEach((item,index)=>{
@@ -42,7 +43,7 @@ class PicturesWall extends React.Component {
       }
   }
 
-  handleChange = ({ fileList,file,event }) => {
+  handleChange = ({ fileList,file }) => {
       if(file.status === 'done'){
         let { status,data,msg } = file.response
         if(status === 0){
@@ -54,7 +55,6 @@ class PicturesWall extends React.Component {
         }
       }
       if(file.status === 'removed'){
-          console.log(1)
           this.deleImag(file.name)
       }
       this.setState({fileList})

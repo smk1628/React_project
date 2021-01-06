@@ -43,9 +43,11 @@ class detail extends Component {
             }
             let { name,desc,pric,category,info,imgs } = res
             let newImgs = [...this.state.imgs]
-            imgs.forEach(item=> {
-                newImgs.unshift(item)
-            })
+            if(imgs){
+                imgs.forEach(item=> {
+                    newImgs.unshift(item)
+                })
+            }
             this.getCategory(category)
             this.setState({name,desc,pric:`￥${pric}`,info,imgs:newImgs})
     }

@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
-import { EditorState, convertToRaw, /* ContentState */ } from 'draft-js';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
-/* import htmlToDraft from 'html-to-draftjs'; */
+import htmlToDraft from 'html-to-draftjs';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 export default class text_editor extends Component {
     state = {
         editorState: EditorState.createEmpty(),
     }
-    // demo = ()=>{
-    //     let html = '<p>Hey this <strong>editor</strong> rocks 😀</p>';
-    //     let contentBlock = htmlToDraft(html);
-    //     if (contentBlock) {
-    //       const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-    //       const editorState = EditorState.createWithContent(contentState);
-    //       this.setState({
-    //         editorState
-    //       })
-    //     }
-    // }
+    setRichText = (html)=>{
+        //let html = '<p>Hey this <strong>editor</strong> rocks 😀</p>';
+        let contentBlock = htmlToDraft(html);
+        if (contentBlock) {
+          const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+          const editorState = EditorState.createWithContent(contentState);
+          this.setState({
+            editorState
+          })
+        }
+    }
     onEditorStateChange = (editorState) => {
         this.setState({
             editorState,

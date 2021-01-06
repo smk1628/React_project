@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import './modify.less'
 import  PicturesWall from './upload.jsx'
 import TextEditor from './text_editor'
-import { getCategory,addGoods,getGoodsById} from '../../../api'
+import { getCategory,addGoods,getGoodsById,updateGoods} from '../../../api'
 const { Title,Text } = Typography
 const { Option } = Select
 @connect(
@@ -15,7 +15,7 @@ class modify extends Component {
     state = {
         title:'添加商品',
         categories:[],
-        
+        goodsId:''
     }
     /* 设置修改页面回显*/
     setInfo= ()=>{
@@ -26,20 +26,32 @@ class modify extends Component {
                 let result = goodsList.find(item=>{
                     return item._id === id
                 })
+                if(!result) this.props.history.goBack()
+                this.setState({goodsId:result._id})
                 this.form.setFieldsValue({...result})
                 if(this.PicturesWall) {
-                    this.PicturesWall.setImgs(result.imgs)
+                    if(result.imgs) this.PicturesWall.setImgs(result.imgs)
+                }
+                if(this.info){
+                    this.info.setRichText(result.info)
                 }
             }else{
                 this.setGetGoodsById(id).then(data=>{
+                    this.setState({goodsId:data._id})
                    this.form.setFieldsValue({...data})
-                   if(this.PicturesWall) {
-                    this.PicturesWall.setImgs(data.imgs)
-                }
+                    if(this.PicturesWall) {
+                        this.PicturesWall.setImgs(data.imgs)
+                    }
+                    if(this.info){
+                        this.info.setRichText(data.info)
+                    }
                }).catch(err=>{
-                   message.error(err)
+                   this.props.history.goBack()
+                   console.log(this)
                })
             }
+        }else{
+            
         }
     }
     /* 设置标题（添加或者修改） */
@@ -47,6 +59,7 @@ class modify extends Component {
         const id = this.props.match.params.id
         if(id) this.setState({title:'修改商品'})
     }
+    /* 根据Id查找商品 */
     setGetGoodsById = async(id)=>{
         const {status,data,msg} = await getGoodsById(id)
                 if(status === 0){
@@ -68,7 +81,6 @@ class modify extends Component {
         }
         this.setState({categories})
     }
-    
     /* 添加商品 */
     doAddGoods = async(val)=>{
         let { status,data,msg } = await addGoods(val)
@@ -79,17 +91,35 @@ class modify extends Component {
             message.error(msg)
         }
     }
+    /* 修改商品 */
+    doUpdateGoods = async(val)=>{
+        let { status,data,msg } = await updateGoods(val)
+        if(status ===0){
+            message.success('商品修改成功')
+            console.log(data)
+        }else{
+            message.error(msg)
+        }
+    }
+    /* 提交表单 */
     onFinish = (values)=>{
         values.imgs = this.PicturesWall.getImagNames() //从上传组件中获取上传图片名
         values.info = this.info.getRichText() //从文本编辑器中获取内容
-        this.doAddGoods(values)
+        if(this.state.goodsId){
+            values._id = this.state.goodsId
+            this.doUpdateGoods(values)
+            console.log(values)
+        }else{
+            this.doAddGoods(values)
+        }
+        
     }
     UNSAFE_componentWillMount(){
-        this.setTitle()
+        this.setTitle() //初始化标题
     }
     componentDidMount(){
-        this.setCategoryList()
-        this.setInfo()
+        this.setCategoryList() //初始化商品分类下拉列表
+        this.setInfo() //初始化回显信息
     }
     render() {
         const { title} = this.state
@@ -147,6 +177,7 @@ class modify extends Component {
                         </Select>
                     </Form.Item>
                     <Form.Item 
+                        
                         label="商品图片"
                         name="imgs"
                         wrapperCol={{md:12,sm:12,xs:12}}
