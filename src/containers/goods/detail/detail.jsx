@@ -37,7 +37,7 @@ class detail extends Component {
                 if(status === 0 && data){
                     res = data
                 }else{
-                    message.error('网络故障')
+                    message.error('未查找到该商品详细信息')
                     return
                 }
             }
