@@ -15,21 +15,23 @@ const { SubMenu } = Menu;
 )
 @withRouter
  class left_nav extends Component {
-    createNav = (target)=>{
+    createNav = (target,keys)=>{
         return target.map((item)=>{
-            if(!item.children ){
-                return (
-                    <Menu.Item key={item.key} icon={React.createElement(Icon[item.icon])} onClick={()=>{this.props.saveTitle(item.title)}}>
-                        <Link to={item.to}>{item.title}</Link>
-                    </Menu.Item>
-                )
-            }else{
-                return(
-                    <SubMenu key={item.key} icon={React.createElement(Icon[item.icon])} title={item.title}>
-                            {this.createNav(item.children)}
-                    </SubMenu>
-                )
-            }
+                if(!item.children && keys.includes(item.key)){
+                    return (
+                        <Menu.Item key={item.key} icon={React.createElement(Icon[item.icon])} onClick={()=>{this.props.saveTitle(item.title)}}>
+                            <Link to={item.to}>{item.title}</Link>
+                        </Menu.Item>
+                    )
+                }else if(item.children && keys.includes(item.key)){
+                    return(
+                        <SubMenu key={item.key} icon={React.createElement(Icon[item.icon])} title={item.title}>
+                                {this.createNav(item.children,keys)}
+                        </SubMenu>
+                    )
+                }else{
+                    return ''
+                } 
         })
     }
     render() {
@@ -39,7 +41,7 @@ const { SubMenu } = Menu;
         return (
             <Menu theme="dark" selectedKeys={[selectedKey]} defaultOpenKeys={path} mode="inline">
                 {
-                    this.createNav(navArr)
+                    this.createNav(navArr,['home','prod_about','sort','goods','user','role','pic','bar','line','pie'])
                 }
             </Menu>
         )

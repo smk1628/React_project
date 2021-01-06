@@ -29,28 +29,28 @@ import { saveCategoryListAction } from '../../redux/action_creators/category_act
     }
     /* 确认对话框 */
     handleOk = () => {
-      this.setState({confirmLoading:true}) //开启异步loading 
       this.form.validateFields().then((value)=>{
         const { categroyName } = value
         const {updateID,status,modalCurrentValue} = this.state
         if(status === 'add'){
+          this.setState({confirmLoading:true}) //开启异步loading 
           this.doAddCategroy(categroyName) //向后台添加数据
         }else{
           if(categroyName === modalCurrentValue){
-            this.setState({confirmLoading:false})
             message.warning('未做出修改')
             return
           }
+          this.setState({confirmLoading:true})
           this.doUpdateCategroy(updateID,categroyName)//修改数据
         }
       }).catch((err)=>{
         message.warning('表单输入有误，请检查',1)
-        this.setState({confirmLoading:false})
       })
     }
     /* 取消对话框 */
     handleCancel = () => {
-      this.setState({visible:false,confirmLoading:false})
+      if(this.state.confirmLoading) return
+      this.setState({visible:false})
       this.form.resetFields()
     }
     /* 将从后台获取的分类维护到state中 */
