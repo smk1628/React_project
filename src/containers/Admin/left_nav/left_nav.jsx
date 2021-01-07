@@ -15,6 +15,7 @@ const { SubMenu } = Menu;
 )
 @withRouter
  class left_nav extends Component {
+     /* 根据用户权限动态生成侧边导航 */
     createNav = (target,keys)=>{
         return target.map((item)=>{
                 if(!item.children && keys.includes(item.key)){
