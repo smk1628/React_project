@@ -8,11 +8,14 @@ export const WEATHER = {
 
 export const PAGE_SIZE = 8
 export const GOODS_PAGE_SIZE = 5
-/* 全选权限 */
+export const DEF_PAGE_SIZE = 6
+/* 平台权限的key */
 export const DEF_ALL = 'all'
 /* 设置默认展开角色管理下所有带子节点的树状权限 */
-export const DEF_TREE = ['all','prod_about','pic']
+export const DEF_TREE = [DEF_ALL,'prod_about','pic']
 /* 设置权限为的默认选择，注意，一级权限会自动选择所有子权限 */
 export const DEF_CHECK = ['home']
 /* 设置要禁用的节点,只写子节点不生效 */
 export const DEF_BAN = ['home']
+/* 默认超级管理员admin */
+export const DEF_ADMIN = 'admin'

@@ -50,3 +50,13 @@ export const reqAddRole = data => ajax.post(`${BASE_URL}/role/add`,data)
 export const reqGetRoles = () => ajax.get(`${BASE_URL}/role/list`)
 /* 设置角色权限 */
 export const reqSetAuth = data => ajax.post(`${BASE_URL}/role/auth`,data)
+/* 获取用户列表 */
+export const reqGetUsers = () => ajax.get(`${BASE_URL}/user/list`)
+/* 添加用户 */
+export const reqAddUser = data => ajax.post(`${BASE_URL}/user/add`,data)
+/* 修改用户 */
+export const reqUpdateUser = data => ajax.post(`${BASE_URL}/user/update`,data)
+/* 删除用户 */
+export const reqDeleUser = data =>ajax.post(`${BASE_URL}/user/dele`,data)
+/* 删除用户 */
+export const reqGetRoleById = data =>ajax.post(`${BASE_URL}/role/getAuthByID`,data)

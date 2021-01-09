@@ -15,7 +15,7 @@ import xue from '../../../static/imgs/xue.png'
 import yin from '../../../static/imgs/yin.png'
 import yu from '../../../static/imgs/yu.png'
 import weizhi from '../../../static/imgs/weizhi.png'
-import navArr from '../../../siderNavConfig'
+import {navArr} from '../../../siderNavConfig'
 const { Header } = Layout;
 
 @connect(

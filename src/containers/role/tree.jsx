@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Tree } from 'antd'
 import { DEF_CHECK,DEF_TREE,DEF_BAN,DEF_ALL} from '../../config'
-import navList from '../../siderNavConfig'
+import {navArr} from '../../siderNavConfig'
 class tree extends Component {
     state = {
         defaultExpandedKeys:[], //设置默认展开
@@ -16,7 +16,7 @@ class tree extends Component {
         const {checkedKeys} = this.state
         /* 过滤all节点 */
         let keys = []
-        for(let i =0;i<checkedKeys.length -1;i++){
+        for(let i =0;i<checkedKeys.length;i++){
             if(checkedKeys[i] !== DEF_ALL){
                 keys.push(checkedKeys[i])
             }
@@ -24,7 +24,7 @@ class tree extends Component {
         return keys
     }
     setTreeList = (arr)=>{  //加工树状结构
-        let treeList = [{title: '平台权限',key: 'all',children: []}]
+        let treeList = [{title: '平台权限',key: DEF_ALL,children: []}]
         treeList[0].children = JSON.parse(JSON.stringify(arr))
         setTreeConfig(treeList[0].children)
 
@@ -41,15 +41,19 @@ class tree extends Component {
                 }
             })
         }
-        //设置默认展开，默认选中
-        this.setState({treeList,defaultCheckedKeys:DEF_CHECK,checkedKeys:DEF_CHECK,defaultExpandedKeys:DEF_TREE})
+        //设置默认展开
+        this.setState({treeList,defaultExpandedKeys:DEF_TREE})
     }
     setDefaultTree = ()=>{
-        let tree = DEF_CHECK.concat(this.props.role.auth)
-        this.setState({defaultCheckedKeys:tree})
+        let newArr = []
+        this.props.role.auth.forEach(item=>{
+            if(!DEF_CHECK.includes(item)) newArr.push(item)
+        })
+        let tree = DEF_CHECK.concat(newArr)
+        this.setState({defaultCheckedKeys:tree,checkedKeys:tree})
     }
     UNSAFE_componentWillMount(){
-        this.setTreeList(navList) //初始化树选择器
+        this.setTreeList(navArr) //初始化树选择器
         this.setDefaultTree()
     }
     render() {

@@ -28,7 +28,7 @@ class Login extends React.Component {
                     // this.props.history.replace('/admin/home')
                     return <Redirect to="/admin/home"/>
                 } else {
-                    message.warning(msg)
+                    message.error(msg)
                 }
 
             }

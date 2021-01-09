@@ -1,4 +1,4 @@
-let a = [
+export const navArr = [
     {
         title:'首页',
         key:'home',
@@ -65,4 +65,22 @@ let a = [
     }
 ]
 
-export default a
+/* 获取navArr里的所有key */
+export const getAllKey = (a)=>{
+    return each(a)
+}
+
+
+function each(a,keys = []){
+    a.forEach(item => {
+        if(!item.children){
+            keys.push(item.key)
+        }else{
+            keys.push(item.key)
+            each(item.children,keys)
+        }
+    })
+    return keys
+}
+
+

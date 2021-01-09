@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { reqAddRole,reqGetRoles,reqSetAuth } from '../../api'
 import Tree from './tree'
 import { setOperaRoleAction } from '../../redux/action_creators/operaRole_action'
+import { DEF_PAGE_SIZE } from '../../config'
 @connect(
     state=>({operaRole:state.operaRole,userInfo:state.userInfo}),
     {setOperaRole:setOperaRoleAction}
@@ -157,7 +158,7 @@ class role extends Component {
                         columns={columns} 
                         bordered 
                         pagination={{
-                            pageSize:5  //每页展示行数
+                            pageSize:DEF_PAGE_SIZE  //每页展示行数
                         }}
                     />
                 </Card>
@@ -177,7 +178,7 @@ class role extends Component {
                     </Form>
                 </Modal>
                 <Modal
-                    title={`角色名称：${this.props.operaRole.rolename}`}
+                    title={<h1>用户名称：<span style={{color:'red'}}>{this.props.operaRole.rolename}</span></h1>} //React.createElement('h1',{style:{color:'#333'}},[`角色名称：`,<span key='1' style={{color:'red'}}>{this.props.operaRole.rolename}</span>])
                     visible={auth_visible}
                     onOk={this.handleOk}
                     confirmLoading={loading }
@@ -186,7 +187,7 @@ class role extends Component {
                     cancelText='取消'
                     destroyOnClose
                 >
-                    <Tree role={this.props.operaRole} ref={(tree)=> this.tree = tree} />
+                    <Tree role={this.props.operaRole} ref={tree=>{this.tree = tree}} />
                 </Modal>
             </>
 
