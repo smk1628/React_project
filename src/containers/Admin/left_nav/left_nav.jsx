@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link,withRouter } from 'react-router-dom'
 import { Menu,message } from 'antd';
 import * as Icon from '@ant-design/icons'
-import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { saveTitleAction } from '../../../redux/action_creators/header_action.js'
 import { navArr,getAllKey } from '../../../siderNavConfig'
